@@ -1,0 +1,22 @@
+{
+  "name": "nefesalmakistiyorumorg",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "crawl": "node crawler/crawl.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thesayyn/nefesalmakistiyorumorg.git"
+  },
+  "author": "thesayyn",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/thesayyn/nefesalmakistiyorumorg/issues"
+  },
+  "homepage": "https://github.com/thesayyn/nefesalmakistiyorumorg#readme",
+  "dependencies": {
+    "puppeteer": "^5.5.0"
+  }
+}
