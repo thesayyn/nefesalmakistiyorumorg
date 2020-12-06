@@ -1,4 +1,5 @@
 node_modules
-public
+public/build
 dist
 .firebase
+.DS_Store
