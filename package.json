@@ -18,5 +18,8 @@
   "homepage": "https://github.com/thesayyn/nefesalmakistiyorumorg#readme",
   "dependencies": {
     "puppeteer": "^5.5.0"
+  },
+  "devDependencies": {
+    "firebase-tools": "^8.17.0"
   }
 }
