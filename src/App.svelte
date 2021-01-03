@@ -1,9 +1,65 @@
 <script>
+  import { onMount } from "svelte";
+  import * as three from "three";
+
+  let canvas;
+
+  onMount(() => {
+    const renderer = new three.WebGLRenderer({ canvas });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(window.devicePixelRatio);
+
+    const camera = new three.PerspectiveCamera(
+      45,
+      window.innerWidth / window.innerHeight,
+      1,
+      1000
+    );
+    camera.position.set(0, 20, 100);
+    camera.lookAt(0, -30, 0);
+    camera.layers.enable(1);
+    camera.layers.enable(2);
+
+    const scene = new three.Scene();
+
+    const directionalLight = new three.DirectionalLight(0xffffff, 1);
+
+    scene.add(directionalLight);
+
+    renderer.render(scene, camera);
+
+    move = (event) => {
+      event.preventDefault();
+      camera.position.z += event.deltaY * -0.05;
+      renderer.render(scene, camera);
+    };
+
+    fetch("data.json")
+    .then((response) => response.json())
+    .then((data) => {
+      count = data.length
+      const material = new three.MeshLambertMaterial({ color: three });
+
+const geometry = new three.SphereGeometry(3, 32, 32);
+
+for (let index = 0; index < count; index++) {
+  const circle = new three.Mesh(geometry, material);
+  circle.position.set(
+    Math.random() * 5 * (Math.random() < 0.5 ? -1 : 1),
+    0,
+    30 * index
+  );
+
+  scene.add(circle);
+}
+    });
+  });
+
+  let move;
+
   let count = "";
 
-  fetch("data.json")
-    .then((response) => response.json())
-    .then((data) => (count = data.length));
+
 </script>
 
 <style>
@@ -24,6 +80,7 @@
     align-items: center;
     justify-content: space-between;
     padding: 0 15px;
+    z-index: 1;
   }
   header img {
     color: #fff;
@@ -34,10 +91,16 @@
     font-size: 4rem;
   }
 
-
   /* content */
   div {
     flex: 1;
+  }
+  canvas {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    z-index: 0;
   }
 
   /* footer */
@@ -83,6 +146,8 @@
   </header>
 
   <div />
+  <canvas bind:this={canvas} on:mousewheel={move} />
+
   <footer>
     <h1># stopfemicide</h1>
     <ul>
